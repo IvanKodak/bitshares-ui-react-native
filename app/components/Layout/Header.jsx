@@ -7,7 +7,6 @@ import SettingsStore from "stores/SettingsStore";
 import SettingsActions from "actions/SettingsActions";
 import ZfApi from "react-foundation-apps/src/utils/foundation-api";
 import SendModal from "../Modal/SendModal";
-import DepositModal from "../Modal/DepositModal";
 import GatewayStore from "stores/GatewayStore";
 import Icon from "../Icon/Icon";
 import Translate from "react-translate-component";
@@ -22,7 +21,6 @@ import ReactTooltip from "react-tooltip";
 import {Apis} from "bitsharesjs-ws";
 import AccountImage from "../Account/AccountImage";
 import {ChainStore} from "bitsharesjs";
-import WithdrawModal from "../Modal/WithdrawModalNew";
 import {List} from "immutable";
 import DropDownMenu from "./HeaderDropdown";
 import {withRouter} from "react-router-dom";
@@ -502,23 +500,6 @@ class Header extends React.Component {
                 </a>
             );
         }
-        if (active.indexOf("spotlight") !== -1) {
-            dynamicMenuItem = (
-                <a style={{flexFlow: "row"}} className={cnames({active: true})}>
-                    <Icon
-                        size="1_5x"
-                        style={{position: "relative", top: 0, left: -8}}
-                        name="showcases"
-                        title="icons.showcases"
-                    />
-                    <Translate
-                        className="column-hide-small"
-                        component="span"
-                        content="header.showcases"
-                    />
-                </a>
-            );
-        }
         if (active.indexOf("settings") !== -1) {
             dynamicMenuItem = (
                 <a
@@ -541,48 +522,6 @@ class Header extends React.Component {
                 </a>
             );
         }
-        if (active.indexOf("deposit-withdraw") !== -1) {
-            dynamicMenuItem = (
-                <a
-                    style={{flexFlow: "row"}}
-                    className={cnames({
-                        active: active.indexOf("deposit-withdraw") !== -1
-                    })}
-                >
-                    <Icon
-                        size="1_5x"
-                        style={{position: "relative", top: 0, left: -8}}
-                        name="deposit"
-                        title="icons.deposit.deposit_withdraw"
-                    />
-                    <Translate
-                        className="column-hide-small"
-                        component="span"
-                        content="header.deposit-withdraw"
-                    />
-                </a>
-            );
-        }
-        if (active.indexOf("news") !== -1) {
-            dynamicMenuItem = (
-                <a
-                    style={{flexFlow: "row"}}
-                    className={cnames({active: active.indexOf("news") !== -1})}
-                >
-                    <Icon
-                        size="1_5x"
-                        style={{position: "relative", top: 0, left: -8}}
-                        name="news"
-                        title="icons.news"
-                    />
-                    <Translate
-                        className="column-hide-small"
-                        component="span"
-                        content="news.news"
-                    />
-                </a>
-            );
-        }
         if (active.indexOf("help") !== -1) {
             dynamicMenuItem = (
                 <a
@@ -599,163 +538,6 @@ class Header extends React.Component {
                         className="column-hide-small"
                         component="span"
                         content="header.help"
-                    />
-                </a>
-            );
-        }
-        if (active.indexOf("/voting") !== -1) {
-            dynamicMenuItem = (
-                <a
-                    style={{flexFlow: "row"}}
-                    className={cnames({
-                        active: active.indexOf("/voting") !== -1
-                    })}
-                >
-                    <Icon
-                        size="1_5x"
-                        style={{position: "relative", top: 0, left: -8}}
-                        name="thumbs-up"
-                        title="icons.thumbs_up"
-                    />
-                    <Translate
-                        className="column-hide-small"
-                        component="span"
-                        content="account.voting"
-                    />
-                </a>
-            );
-        }
-        if (
-            active.indexOf("/assets") !== -1 &&
-            active.indexOf("explorer") === -1
-        ) {
-            dynamicMenuItem = (
-                <a
-                    style={{flexFlow: "row"}}
-                    className={cnames({
-                        active: active.indexOf("/assets") !== -1
-                    })}
-                >
-                    <Icon
-                        size="1_5x"
-                        style={{position: "relative", top: 0, left: -8}}
-                        name="assets"
-                        title="icons.assets"
-                    />
-                    <Translate
-                        className="column-hide-small"
-                        component="span"
-                        content="explorer.assets.title"
-                    />
-                </a>
-            );
-        }
-        if (active.indexOf("/signedmessages") !== -1) {
-            dynamicMenuItem = (
-                <a
-                    style={{flexFlow: "row"}}
-                    className={cnames({
-                        active: active.indexOf("/signedmessages") !== -1
-                    })}
-                >
-                    <Icon
-                        size="1_5x"
-                        style={{position: "relative", top: 0, left: -8}}
-                        name="text"
-                        title="icons.text.signed_messages"
-                    />
-                    <Translate
-                        className="column-hide-small"
-                        component="span"
-                        content="account.signedmessages.menuitem"
-                    />
-                </a>
-            );
-        }
-        if (active.indexOf("/member-stats") !== -1) {
-            dynamicMenuItem = (
-                <a
-                    style={{flexFlow: "row"}}
-                    className={cnames({
-                        active: active.indexOf("/member-stats") !== -1
-                    })}
-                >
-                    <Icon
-                        size="1_5x"
-                        style={{position: "relative", top: 0, left: -8}}
-                        name="text"
-                        title="icons.text.membership_stats"
-                    />
-                    <Translate
-                        className="column-hide-small"
-                        component="span"
-                        content="account.member.stats"
-                    />
-                </a>
-            );
-        }
-        if (active.indexOf("/vesting") !== -1) {
-            dynamicMenuItem = (
-                <a
-                    style={{flexFlow: "row"}}
-                    className={cnames({
-                        active: active.indexOf("/vesting") !== -1
-                    })}
-                >
-                    <Icon
-                        size="1_5x"
-                        style={{position: "relative", top: 0, left: -8}}
-                        name="hourglass"
-                        title="icons.hourglass"
-                    />
-                    <Translate
-                        className="column-hide-small"
-                        component="span"
-                        content="account.vesting.title"
-                    />
-                </a>
-            );
-        }
-        if (active.indexOf("/whitelist") !== -1) {
-            dynamicMenuItem = (
-                <a
-                    style={{flexFlow: "row"}}
-                    className={cnames({
-                        active: active.indexOf("/whitelist") !== -1
-                    })}
-                >
-                    <Icon
-                        size="1_5x"
-                        style={{position: "relative", top: 0, left: -8}}
-                        name="list"
-                        title="icons.list"
-                    />
-                    <Translate
-                        className="column-hide-small"
-                        component="span"
-                        content="account.whitelist.title"
-                    />
-                </a>
-            );
-        }
-        if (active.indexOf("/permissions") !== -1) {
-            dynamicMenuItem = (
-                <a
-                    style={{flexFlow: "row"}}
-                    className={cnames({
-                        active: active.indexOf("/permissions") !== -1
-                    })}
-                >
-                    <Icon
-                        size="1_5x"
-                        style={{position: "relative", top: 0, left: -8}}
-                        name="warning"
-                        title="icons.warning"
-                    />
-                    <Translate
-                        className="column-hide-small"
-                        component="span"
-                        content="account.permissions"
                     />
                 </a>
             );
@@ -1096,110 +878,6 @@ class Header extends React.Component {
                                     </Link>
                                 </li>
                             )}
-                            <li>
-                                <a
-                                    style={{flexFlow: "row"}}
-                                    className={cnames(
-                                        active.indexOf("market/") !== -1
-                                            ? null
-                                            : "column-hide-xxs",
-                                        {
-                                            active:
-                                                active.indexOf("market/") !== -1
-                                        }
-                                    )}
-                                    onClick={this._onNavigate.bind(
-                                        this,
-                                        tradeUrl
-                                    )}
-                                >
-                                    <Icon
-                                        size="1_5x"
-                                        style={{
-                                            position: "relative",
-                                            top: -2,
-                                            left: -8
-                                        }}
-                                        name="trade"
-                                        title="icons.trade.exchange"
-                                    />
-                                    <Translate
-                                        className="column-hide-small"
-                                        component="span"
-                                        content="header.exchange"
-                                    />
-                                </a>
-                            </li>
-                            <li>
-                                <a
-                                    style={{flexFlow: "row"}}
-                                    className={cnames(
-                                        active.indexOf("explorer") !== -1
-                                            ? null
-                                            : "column-hide-xs",
-                                        {
-                                            active:
-                                                active.indexOf("explorer") !==
-                                                -1
-                                        }
-                                    )}
-                                    onClick={this._onNavigate.bind(
-                                        this,
-                                        "/explorer/blocks"
-                                    )}
-                                >
-                                    <Icon
-                                        size="2x"
-                                        style={{
-                                            position: "relative",
-                                            top: 0,
-                                            left: -8
-                                        }}
-                                        name="server"
-                                        title="icons.server"
-                                    />
-                                    <Translate
-                                        className="column-hide-small"
-                                        component="span"
-                                        content="header.explorer"
-                                    />
-                                </a>
-                            </li>
-                            {/*                            <li>
-                                <a
-                                    style={{flexFlow: "row"}}
-                                    className={cnames(
-                                        active.indexOf("showcases") !== -1
-                                            ? null
-                                            : "column-hide-xs",
-                                        {
-                                            active:
-                                                active.indexOf("showcases") !==
-                                                -1
-                                        }
-                                    )}
-                                    onClick={this._onNavigate.bind(
-                                        this,
-                                        "/showcases"
-                                    )}
-                                >
-                                    <Icon
-                                        size="2x"
-                                        style={{
-                                            position: "relative",
-                                            top: 0,
-                                            left: -8
-                                        }}
-                                        name="showcases"
-                                        title="icons.showcases"
-                                    />
-                                    <Translate
-                                        className="column-hide-small"
-                                        component="span"
-                                        content="header.showcases"
-                                    />
-                                </a>
-                            </li>*/}
                             {/* Dynamic Menu Item */}
                             <li>{dynamicMenuItem}</li>
                         </ul>
@@ -1330,27 +1008,6 @@ class Header extends React.Component {
                     }}
                     from_name={currentAccount}
                 />
-                {this.state.hasDepositModalBeenShown && (
-                    <DepositModal
-                        visible={this.state.isDepositModalVisible}
-                        hideModal={this.hideDepositModal}
-                        showModal={this.showDepositModal}
-                        ref="deposit_modal_new"
-                        modalId="deposit_modal_new"
-                        account={currentAccount}
-                        backedCoins={this.props.backedCoins}
-                    />
-                )}
-                {this.state.hasWithdrawalModalBeenShown && (
-                    <WithdrawModal
-                        visible={this.state.isWithdrawModalVisible}
-                        hideModal={this.hideWithdrawModal}
-                        showModal={this.showWithdrawModal}
-                        ref="withdraw_modal_new"
-                        modalId="withdraw_modal_new"
-                        backedCoins={this.props.backedCoins}
-                    />
-                )}
             </div>
         );
     }

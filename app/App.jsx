@@ -12,7 +12,6 @@ import NotificationSystem from "react-notification-system";
 import TransactionConfirm from "./components/Blockchain/TransactionConfirm";
 import WalletUnlockModal from "./components/Wallet/WalletUnlockModal";
 import BrowserSupportModal from "./components/Modal/BrowserSupportModal";
-import Footer from "./components/Layout/Footer";
 import Deprecate from "./Deprecate";
 import Incognito from "./components/Layout/Incognito";
 import {isIncognito} from "feature_detect";
@@ -23,22 +22,10 @@ import {DEFAULT_NOTIFICATION_DURATION} from "services/Notification";
 import Loadable from "react-loadable";
 import NewsHeadline from "components/Layout/NewsHeadline";
 
-import {Route, Switch, Redirect} from "react-router-dom";
+import {Route, Switch} from "react-router-dom";
 
 // Nested route components
 import Page404 from "./components/Page404/Page404";
-
-const Exchange = Loadable({
-    loader: () =>
-        import(/* webpackChunkName: "exchange" */ "./components/Exchange/ExchangeContainer"),
-    loading: LoadingIndicator
-});
-
-const Explorer = Loadable({
-    loader: () =>
-        import(/* webpackChunkName: "explorer" */ "./components/Explorer/Explorer"),
-    loading: LoadingIndicator
-});
 
 const AccountPage = Loadable({
     loader: () =>
@@ -49,17 +36,6 @@ const AccountPage = Loadable({
 const Transfer = Loadable({
     loader: () =>
         import(/* webpackChunkName: "transfer" */ "./components/Transfer/Transfer"),
-    loading: LoadingIndicator
-});
-
-const AccountDepositWithdraw = Loadable({
-    loader: () =>
-        import(/* webpackChunkName: "deposit-withdraw" */ "./components/Account/AccountDepositWithdraw"),
-    loading: LoadingIndicator
-});
-
-const News = Loadable({
-    loader: () => import(/* webpackChunkName: "news" */ "./components/News"),
     loading: LoadingIndicator
 });
 
@@ -83,12 +59,6 @@ const Asset = Loadable({
 const Block = Loadable({
     loader: () =>
         import(/* webpackChunkName: "block" */ "./components/Blockchain/BlockContainer"),
-    loading: LoadingIndicator
-});
-
-const DashboardAccountsOnly = Loadable({
-    loader: () =>
-        import(/* webpackChunkName: "dashboard-accounts" */ "./components/Dashboard/DashboardAccountsOnly"),
     loading: LoadingIndicator
 });
 
@@ -146,7 +116,6 @@ import RegistrationSelector from "./components/Registration/RegistrationSelector
 import WalletRegistration from "./components/Registration/WalletRegistration";
 import AccountRegistration from "./components/Registration/AccountRegistration";
 import {CreateWalletFromBrainkey} from "./components/Wallet/WalletCreate";
-import ShowcaseGrid from "./components/Showcases/ShowcaseGrid";
 import PriceAlertNotifications from "./components/PriceAlertNotifications";
 
 class App extends React.Component {
@@ -400,14 +369,6 @@ class App extends React.Component {
                                     component={AccountPage}
                                 />
                                 <Route
-                                    path="/accounts"
-                                    component={DashboardAccountsOnly}
-                                />
-                                <Route
-                                    path="/market/:marketID"
-                                    component={Exchange}
-                                />
-                                <Route
                                     path="/settings/:tab"
                                     component={Settings}
                                 />
@@ -417,11 +378,6 @@ class App extends React.Component {
                                     path="/transfer"
                                     exact
                                     component={Transfer}
-                                />
-                                <Route
-                                    path="/deposit-withdraw"
-                                    exact
-                                    component={AccountDepositWithdraw}
                                 />
                                 <Route
                                     path="/create-account"
@@ -443,19 +399,6 @@ class App extends React.Component {
                                     exact
                                     component={AccountRegistration}
                                 />
-                                <Route path="/news" exact component={News} />
-                                <Redirect
-                                    path={"/voting"}
-                                    to={{
-                                        pathname: `/account/${accountName}/voting`
-                                    }}
-                                />
-                                {/* Explorer routes */}
-                                <Route
-                                    path="/explorer/:tab"
-                                    component={Explorer}
-                                />
-                                <Route path="/explorer" component={Explorer} />
                                 <Route
                                     path="/asset/:symbol"
                                     component={Asset}
@@ -476,11 +419,6 @@ class App extends React.Component {
                                 <Route
                                     path="/direct-debit"
                                     component={DirectDebit}
-                                />
-
-                                <Route
-                                    path="/spotlight"
-                                    component={ShowcaseGrid}
                                 />
 
                                 {/* Wallet backup/restore routes */}
@@ -524,10 +462,6 @@ class App extends React.Component {
                             </Switch>
                         </div>
                     </div>
-                    <Footer
-                        synced={this.state.synced}
-                        history={this.props.history}
-                    />
                     <ReactTooltip
                         ref="tooltip"
                         place="top"

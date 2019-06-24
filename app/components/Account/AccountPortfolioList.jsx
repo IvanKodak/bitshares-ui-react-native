@@ -22,9 +22,7 @@ import utils from "common/utils";
 import SendModal from "../Modal/SendModal";
 import SettingsActions from "actions/SettingsActions";
 import SettleModal from "../Modal/SettleModal";
-import DepositModal from "../Modal/DepositModal";
 import SimpleDepositBlocktradesBridge from "../Dashboard/SimpleDepositBlocktradesBridge";
-import WithdrawModal from "../Modal/WithdrawModalNew";
 import ZfApi from "react-foundation-apps/src/utils/foundation-api";
 import ReserveAssetModal from "../Modal/ReserveAssetModal";
 import PaginatedList from "../Utility/PaginatedList";
@@ -1338,29 +1336,6 @@ class AccountPortfolioList extends React.Component {
                         this.state.isSettleModalVisibleBefore) &&
                         this._renderSettleModal()}
                     {this._renderBorrowModal()}
-
-                    {(this.state.isWithdrawModalVisible ||
-                        this.state.isWithdrawModalVisibleBefore) && (
-                        <WithdrawModal
-                            hideModal={this.hideWithdrawModal}
-                            visible={this.state.isWithdrawModalVisible}
-                            backedCoins={this.props.backedCoins}
-                            initialSymbol={this.state.withdrawAsset}
-                        />
-                    )}
-
-                    {/* Deposit Modal */}
-                    {(this.state.isDepositModalVisible ||
-                        this.state.isDepositModalVisibleBefore) && (
-                        <DepositModal
-                            visible={this.state.isDepositModalVisible}
-                            showModal={this.showDepositModal}
-                            hideModal={this.hideDepositModal}
-                            asset={this.state.depositAsset}
-                            account={this.props.account.get("name")}
-                            backedCoins={this.props.backedCoins}
-                        />
-                    )}
 
                     {/* Bridge modal */}
                     {(this.state.isBridgeModalVisible ||
